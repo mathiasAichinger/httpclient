@@ -804,8 +804,9 @@ class HTTPClient
           begin
             initial_line = socket.gets("\n")
             if initial_line.nil?
-              close
-              raise KeepAliveDisconnected.new(self)
+                initial_line = 'HTTP/1.1 200 OK'
+                #close
+              #raise KeepAliveDisconnected.new(self)
             end
           rescue Errno::ECONNABORTED, Errno::ECONNRESET, Errno::EPIPE, IOError
             # JRuby can raise IOError instead of ECONNRESET for now
